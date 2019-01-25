@@ -131,6 +131,21 @@ public:
 		: Proto(std::move(proto)), Body(std::move(body)) {}
 };
 
+static int CurTok;
+static int getNextToken() {
+	return CurTok = gettok();
+}
+
+std::unique_ptr<ExprAST> LogError(const char *Str) {
+	fprintf(stderr, "LogError: %s\n", Str);
+	return nullptr;
+}
+
+std::unique_ptr<PrototypeAST> LogErrorP(const char *Str) {
+	LogError(Str);
+	return nullptr;
+}
+
 int main()
 {
 	int token;
